@@ -35,11 +35,11 @@ class BooksRepository
     private function parseBook($book)
     {
         $bookObject = new Book();
-        $bookObject->setId($book['bookId']);
-        $bookObject->setTitle($book['title']);
-        $bookObject->setAuthors($book['authors']);
-        $bookObject->setYear($book['year']);
-        $bookObject->setGenre($book['description']);
+        if (isset($book['bookId'])) $bookObject->setId($book['bookId']);
+        if (isset($book['title'])) $bookObject->setTitle($book['title']);
+        if (isset($book['authors'])) $bookObject->setAuthors($book['authors']);
+        if (isset($book['year'])) $bookObject->setYear($book['year']);
+        if (isset($book['description'])) $bookObject->setGenre($book['description']);
         return $bookObject;
     }
 
@@ -58,10 +58,10 @@ class BooksRepository
 
         $booksArray = [];
         foreach ($books as $book) {
-            $bookObject = new Book();
-            $bookObject->setId($book['bookId']);
-            $bookObject->setTitle($book['title']);
-            $booksArray[] = $bookObject;
+//            $bookObject = new Book();
+//            $bookObject->setId($book['bookId']);
+//            $bookObject->setTitle($book['title']);
+            $booksArray[] = $this->parseBook($book);
         }
 
         return $booksArray;
